@@ -1,9 +1,11 @@
 var express=require('express');
 var app=express();
-var mongojs=require('mongojs');
-var db=mongojs('contactlist',['contactlist']);
+var mongoose=require('mongoose');
+//var mongojs=require('mongojs');
+//var db=mongojs('contactlist',['contactlist']);
 var bodyParser=require('body-parser');
-
+var db ='mongodb://localhost/example';
+mongoose.connect(db);
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.get('/contactlist',function(req,res){
@@ -14,6 +16,12 @@ console.log("Primio sam Get zahtjev");
    	res.json(docs);
    });
 });
+mongoose.model('Korisnici',{name: String});
+// app.get_novi('/users',function(req,res){
+// mongoose.model('users').find(function(err,users){
+// res.send(users);
+// });
+// });
 app.post('/contactlist',function(req,res){
 console.log(req.body);
 db.contactlist.insert(req.body,function(err,doc){
