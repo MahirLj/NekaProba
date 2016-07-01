@@ -11,6 +11,26 @@ $scope.contact="";
 };
 refresh();
 
+ var refreshBook=function()
+ {
+ $http.get('/books').success(function(response){
+        console.log("Ispis knjiga");
+        $scope.books=response;
+        $scope.book="";
+    });
+};
+    
+        
+                             
+$scope.addBook=function(){
+console.log($scope.book);
+$http.post('books',$scope.contact).success(function(response){
+    console.log(response);
+        refreshBook();
+                });
+          };
+    
+    
 $scope.addContact=function(){
 console.log($scope.contact);
 $http.post('/contactlist', $scope.contact).success(function(response){

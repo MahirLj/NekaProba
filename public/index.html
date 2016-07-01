@@ -10,7 +10,30 @@
 </head>
 <body>
 <div class="container" ng-controller="AppCtrl">
-<h1>Contact list app</h1>	
+<h1>Contact list app</h1>
+    
+    <table class="table">
+    <thead>
+        <tr>
+        <th>Title</th>
+        <th>Author</th>
+            <th>Category</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tr>
+        <td><input class="form-control" ng-model="book.title"></td>
+        <td><input class="form-control" ng-model="book.author"></td>
+        <td><input class="form-control" ng-model="book.cathegory"></td>
+            <td><button class="btn btn-primary" ng-click="addBook()">Add Book</button></td>
+        </tr>
+        <tr ng-repeat="book in books">
+        <td>{{book.title}}</td>
+            <td>{{book.author}}</td>
+            <td>{{book.cathegory}}</td>
+        </tr>
+    </table>
+    
 <table class="table">
 <thead>
 	<tr>
