@@ -19,15 +19,31 @@ refresh();
         $scope.book="";
     });
 };
-    
+    refreshBook();
         
+    
+//    $scope.zajedno=function()
+//    {
+//        $http.post('/zajedno',$scope.user).success(function(response){
+//            console.log(response);
+//        });
+//    }
+    
+    var refreshZajedno=function(){
+    $http.get('/zajedno').success(function(response){
+        console.log("Zajedno");
+        $scope.user=response;
+        $scope.user="";
+    });
+    };
+    
                              
 $scope.addBook=function(){
 console.log($scope.book);
-$http.post('books',$scope.contact).success(function(response){
+$http.post('/books',$scope.book).success(function(response){
     console.log(response);
         refreshBook();
-                });
+         });
           };
     
     
@@ -38,6 +54,13 @@ $http.post('/contactlist', $scope.contact).success(function(response){
 	refresh();
 });
 };
+    $scope.addZajedno=function(id){
+        console.log($scope.book);
+        $http.post('/zajedno/'+id,$scope.book).success(function(response){
+            console.log(response);
+           // refreshZajedno();
+        });
+    };
 $scope.remove=function(id){
 	console.log(id);
 	$http.delete('/contactlist/' +id).success(function(response){

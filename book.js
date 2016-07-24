@@ -6,4 +6,4 @@ var BookSchema = new Schema({
     author:String,
     category:String
 });
-module.exports=mongoose.model('Book',BookSchema);
+module.exports=mongoose.model('book',BookSchema);

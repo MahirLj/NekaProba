@@ -76,6 +76,92 @@ app.get('/books',function(req,res){
 //})
 //})
 
+app.post('/zajedno/:id', function(req,res)
+{
+var newBook=new book();
+    newBook.title=req.body.title;
+    newBook.author="577a16519ab4632416165e66";
+    newBook.category=req.body.category;
+    newBook.save(function(err,knjige){
+        if(err){
+            res.send('error saving zajedno');
+        }else{
+user.findOne({_id:"577a16519ab4632416165e66"})
+ .exec(function(err,user){
+//.populate('newBook')
+//.exec(function(err,knjiga){
+//       res.send(knjige);
+//            console.log(knjige);
+//        });
+//        };
+//    });
+  //  if(err){
+    //    res.send('error ');
+    //}
+   //else{
+if(user.books){
+  user.books.push(knjige._id);
+   
+        user.save(function(err,users){
+            if(err){
+                res.send('greska sa korisnikom');
+            }else{
+                console.log(users);
+                res.send(users);
+                console.log(user.books.title);
+            //}
+            //});
+    }
+});
+}else{
+user.books=[knjige._id];
+}
+});
+          }
+    });
+});
+
+
+app.get('/books/:id', function(req,res){
+Book.findOne({
+    _id:req.params.id
+})
+.exec(function(err,book){
+if(err){
+    res.send('error occured');
+}
+    else{
+    console.log(book);
+    res.json(book);
+    }
+})
+})
+
+
+
+
+//app.post('zajedno/:id', function(req,res){
+//console.log('Zajedno');
+//user.findOne({_id:req.params.id})
+//.populate('book')
+//.exec(function(err,user){
+//    if(err){res.send('error');}
+//    else{console.log(user);
+//res.send(user);
+//        }
+//});
+//});
+
+app.get('zajedno',function(req,res){
+console.log('Zajedno');
+    user.findOne({})
+    .populate('user')
+    .exec(function(err,knjiga){
+        if(err)return handleError(err);
+        console.log('Posjeduje: %s', knjiga.book.title);
+
+});
+});
 
 
 app.post('/contactlist', function(req,res){
@@ -87,7 +173,7 @@ app.post('/contactlist', function(req,res){
     
     newUser.save(function(err,users){
         if(err){
-            res.send('error saving book');
+            res.send('error saving contact');
         }else{
             console.log(users);
             res.send(users);
@@ -96,11 +182,10 @@ app.post('/contactlist', function(req,res){
 });
 app.post('/books', function(req,res){
   var newBook=new book();
-    
+   // console.log(req.title);
     newBook.title=req.body.title;
     newBook.author=req.body.author;
     newBook.category=req.body.category;
-    
     newBook.save(function(err,books){
         if(err){
             res.send('error saving book');
@@ -175,20 +260,6 @@ app.put('/contactlist/:id', function (req, res) {
 });
 
 
-app.get('/books/:id', function(req,res){
-Book.findOne({
-    _id:req.params.id
-})
-.exec(function(err,book){
-if(err){
-    res.send('error occured');
-}
-    else{
-    console.log(book);
-    res.json(book);
-    }
-})
-})
 
 
 app.put('/books/:id', function(req,res){
